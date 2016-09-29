@@ -44,7 +44,7 @@ class Glib < Formula
   # to unrelated issues in GCC, but improves the situation.
   # Patch submitted upstream: https://bugzilla.gnome.org/show_bug.cgi?id=672777
   patch do
-    url "https://raw.githubusercontent.com/tschoonj/formula-patches/glib/glib/gio.patch"
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/master/glib/gio.patch"
     sha256 "284cbf626f814c21f30167699e6e59dcc0d31000d71151f25862b997a8c8493d"
   end
 

@@ -19,7 +19,8 @@ class Gstreamermm < Formula
 
   needs :cxx11
 
-  # Bug filed upstream with patch at https://bugzilla.gnome.org/show_bug.cgi?id=772645
+  # Compilation error due to missing header
+  # Upstream issue 9 Oct 2016 https://bugzilla.gnome.org/show_bug.cgi?id=772645
   patch do
     url "https://raw.githubusercontent.com/Homebrew/formula-patches/10887881c9f2859ca90ee8e781f0d10dae02b7a5/gstreamermm/caps.h.patch"
     sha256 "1ec6f9c977c1fc5282c491b5d3867df35e31f00ddf696adf7a9185f47da86627"

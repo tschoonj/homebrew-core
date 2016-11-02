@@ -21,6 +21,7 @@ class Gitg < Formula
   depends_on "json-glib"
   depends_on "libsecret"
   depends_on "libpeas"
+  depends_on "libsoup"
   depends_on "gtkspell3"
   depends_on "hicolor-icon-theme"
   depends_on "gnome-icon-theme"

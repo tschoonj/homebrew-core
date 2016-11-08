@@ -18,15 +18,16 @@ class Webkitgtk < Formula
   depends_on "webp"
 
   patch do
-    url "https://raw.githubusercontent.com/tschoonj/formula-patches/webkit/webkit/webkit-2.14.1.diff"
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/master/webkit/webkit-2.14.1.diff"
     sha256 "df9af608b9c5c1f19c26db5970ad6b8638fc6b7573b9510f82e4ddadf248787d"
   end
 
   def install
     ENV.delete "SDKROOT"
 
+    # turn introspection support OFF until we figure out how to fix it
     extra_args = %w[
-      -DENABLE_INTROSPECTION=ON
+      -DENABLE_INTROSPECTION=OFF
       -DPORT=GTK
       -DENABLE_X11_TARGET=OFF
       -DENABLE_QUARTZ_TARGET=ON

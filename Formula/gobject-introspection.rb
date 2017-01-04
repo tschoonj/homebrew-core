@@ -10,16 +10,21 @@ class GobjectIntrospection < Formula
     sha256 "cb851182a1a2c6bdd29ed88b8f186fc7f2453e0b3cbf2c36409e80c00c3a100c" => :yosemite
   end
 
+  head do
+    url "git://git.gnome.org/gobject-introspection"
+
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
+  end
+
   option :universal
 
   depends_on "pkg-config" => :run
   depends_on "glib"
   depends_on "cairo"
   depends_on "libffi"
-  # System python in Mavericks or below has bug in distutils/sysconfig.py, which breaks the install.
-  #    Caught exception: <type 'exceptions.AttributeError'> AttributeError("'NoneType' object has no attribute 'get'",)
-  #    > /System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/distutils/sysconfig.py(171)customize_compiler()
-  depends_on "python" if MacOS.version <= :mavericks
+  depends_on "python"
 
   resource "tutorial" do
     url "https://gist.github.com/7a0023656ccfe309337a.git",
@@ -27,6 +32,11 @@ class GobjectIntrospection < Formula
   end
 
   def install
+    if build.head?
+      ENV["NOCONFIGURE"] = "yes"
+      system "./autogen.sh"
+    end
+
     ENV["GI_SCANNER_DISABLE_CACHE"] = "true"
     ENV.universal_binary if build.universal?
     inreplace "giscanner/transformer.py", "/usr/share", "#{HOMEBREW_PREFIX}/share"

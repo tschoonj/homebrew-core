@@ -4,6 +4,11 @@ class Glib < Formula
   url "https://download.gnome.org/sources/glib/2.50/glib-2.50.3.tar.xz"
   sha256 "82ee94bf4c01459b6b00cb9db0545c2237921e3060c0b74cff13fbc020cfd999"
 
+  devel do
+    url "https://download.gnome.org/sources/glib/2.51/glib-2.51.0.tar.xz"
+    sha256 "f113b7330f4b4a43e3e401fe7849e751831060d574bd936a63e979887137a74a"
+  end
+
   bottle do
     sha256 "53a03f3cae2e738580bf2d841325f8d8f8515f15c1dc8daff9e126f4b6cd2de0" => :sierra
     sha256 "444558c8bcc68dfe044c58edba991e49b5689d442a7cb6909af208a98ef52933" => :el_capitan
@@ -37,9 +42,11 @@ class Glib < Formula
   # Fixes compilation with FSF GCC. Doesn't fix it on every platform, due
   # to unrelated issues in GCC, but improves the situation.
   # Patch submitted upstream: https://bugzilla.gnome.org/show_bug.cgi?id=672777
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/a39dec26/glib/gio.patch"
-    sha256 "284cbf626f814c21f30167699e6e59dcc0d31000d71151f25862b997a8c8493d"
+  if build.stable?
+    patch do
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/a39dec26/glib/gio.patch"
+      sha256 "284cbf626f814c21f30167699e6e59dcc0d31000d71151f25862b997a8c8493d"
+    end
   end
 
   if build.universal?
@@ -70,8 +77,10 @@ class Glib < Formula
       "@@HOMEBREW_PREFIX@@", HOMEBREW_PREFIX
 
     # renaming is necessary for patches to work
-    mv "gio/gcocoanotificationbackend.c", "gio/gcocoanotificationbackend.m" unless MacOS.version < :mavericks
-    mv "gio/gnextstepsettingsbackend.c", "gio/gnextstepsettingsbackend.m"
+    if build.stable?
+      mv "gio/gcocoanotificationbackend.c", "gio/gcocoanotificationbackend.m" unless MacOS.version < :mavericks
+      mv "gio/gnextstepsettingsbackend.c", "gio/gnextstepsettingsbackend.m"
+    end
 
     # Disable dtrace; see https://trac.macports.org/ticket/30413
     args = %W[

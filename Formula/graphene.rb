@@ -12,18 +12,36 @@ class Graphene < Formula
     sha256 "8072477f15c69a336a63cb86c75610ab6e1b1d11eadb9b05244a4f565abf6b79" => :mountain_lion
   end
 
+  devel do
+    url "https://download.gnome.org/sources/graphene/1.5/graphene-1.5.2.tar.xz"
+    sha256 "4b2fe2c3aad43416bb520e2b3f0e1f4535b0fa722291a14904b01765afe9416f"
+    depends_on "meson" => :build
+    depends_on "ninja" => :build
+  end
+
   depends_on "pkg-config" => :build
   depends_on "glib"
   depends_on "gobject-introspection"
 
   def install
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}"
-    system "make"
-    system "make", "check"
-    system "make", "install"
+    if build.devel?
+      ENV.delete("SDKROOT")
+      inreplace "src/meson.build", "'-Wl,-Bsymbolic-functions'", "" 
+      mkdir "build" do
+        system "meson", "--prefix=#{prefix}", "-Denable-introspection=true", "-Denable-gobject-types=true", ".."
+        system "ninja"
+        system "ninja", "test"
+        system "ninja", "install"
+      end
+    else
+      system "./configure", "--disable-debug",
+                            "--disable-dependency-tracking",
+                            "--disable-silent-rules",
+                            "--prefix=#{prefix}"
+      system "make"
+      system "make", "check"
+      system "make", "install"
+    end
   end
 
   test do

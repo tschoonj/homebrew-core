@@ -5,8 +5,8 @@ class Glib < Formula
   sha256 "82ee94bf4c01459b6b00cb9db0545c2237921e3060c0b74cff13fbc020cfd999"
 
   devel do
-    url "https://download.gnome.org/sources/glib/2.51/glib-2.51.0.tar.xz"
-    sha256 "f113b7330f4b4a43e3e401fe7849e751831060d574bd936a63e979887137a74a"
+    url "https://download.gnome.org/sources/glib/2.51/glib-2.51.2.tar.xz"
+    sha256 "9bc6ce33af0d5d67506fbbbf692d80c74a9cc18180376c087b6b5061e493756d"
   end
 
   bottle do

@@ -23,12 +23,6 @@ class Glib < Formula
   depends_on "libffi"
   depends_on "pcre"
 
-  resource "config.h.ed" do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/eb51d82/glib/config.h.ed"
-    version "111532"
-    sha256 "9f1e23a084bc879880e589893c17f01a2f561e20835d6a6f08fcc1dad62388f1"
-  end
-
   # https://bugzilla.gnome.org/show_bug.cgi?id=673135 Resolved as wontfix,
   # but needed to fix an assumption about the location of the d-bus machine
   # id file.

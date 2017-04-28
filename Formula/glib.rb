@@ -35,14 +35,14 @@ class Glib < Formula
   # to unrelated issues in GCC, but improves the situation.
   # Patch submitted upstream: https://bugzilla.gnome.org/show_bug.cgi?id=672777
   patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/13efbb2e95e83ba3bd8a81ea5b2748828dbd4311/glib/gio.patch"
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/13efbb2/glib/gio.patch"
     sha256 "628f8ea171a29c67fb06461ce4cfe549846b8fe64d83466e18e225726615b997"
   end
 
   # Revert some bad macOS specific commits
   # https://bugzilla.gnome.org/show_bug.cgi?id=780271
   patch do
-   url "https://raw.githubusercontent.com/tschoonj/formula-patches/glib-2.52.1/glib/revert-appinfo-contenttype.patch"
+   url "https://raw.githubusercontent.com/Homebrew/formula-patches/73738ca/glib/revert-appinfo-contenttype.patch"
    sha256 "675369c6d956b5533865178a2a78a6b2dcb921fbcfd81d35e92fc1592323e5e4"
   end
 

@@ -42,8 +42,8 @@ class Glib < Formula
   # Revert some bad macOS specific commits
   # https://bugzilla.gnome.org/show_bug.cgi?id=780271
   patch do
-   url "https://raw.githubusercontent.com/Homebrew/formula-patches/73738ca/glib/revert-appinfo-contenttype.patch"
-   sha256 "675369c6d956b5533865178a2a78a6b2dcb921fbcfd81d35e92fc1592323e5e4"
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/73738ca/glib/revert-appinfo-contenttype.patch"
+    sha256 "675369c6d956b5533865178a2a78a6b2dcb921fbcfd81d35e92fc1592323e5e4"
   end
 
   def install

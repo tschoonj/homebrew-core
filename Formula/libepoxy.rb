@@ -11,14 +11,20 @@ class Libepoxy < Formula
     sha256 "fcf8b7560ec836403bcae4d69a16c27793a7042b09673e1c2914cf010d6381f1" => :yosemite
   end
 
+  depends_on "meson" => :build
+  depends_on "ninja" => :build
   depends_on "pkg-config" => :build
   depends_on :python => :build if MacOS.version <= :snow_leopard
 
   def install
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}"
-    system "make"
-    system "make", "install"
+    # see https://github.com/anholt/libepoxy/pull/128
+    inreplace "src/meson.build", "version=1", "version 1"
+    mkdir "build" do
+      system "meson", "--prefix=#{prefix}", ".."
+      system "ninja"
+      system "ninja", "test"
+      system "ninja", "install"
+    end
   end
 
   test do

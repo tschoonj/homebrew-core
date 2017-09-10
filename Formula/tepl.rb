@@ -9,6 +9,12 @@ class Tepl < Formula
   depends_on "gobject-introspection"
   depends_on "uchardet"
 
+  bottle do
+    sha256 "e9029727148e5970ee01ceb8cc4e3cc3b226aaa1c6d4a87b97ecb515cefd8ae4" => :sierra
+    sha256 "35aa0e7a2d72109c47ccf2b8a438d10bd299c3d77f6bdce64cd4795c0e74e872" => :el_capitan
+    sha256 "76e0fcbdc905feb1a1bfb2ce7854a3e7707d3959588fc6aab7624911b8f792df" => :yosemite
+  end
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",

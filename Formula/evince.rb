@@ -26,6 +26,8 @@ class Evince < Formula
   depends_on :python if MacOS.version <= :snow_leopard
 
   def install
+    inreplace "configure", "AR_FLAGS=crD", "AR_FLAGS=r"
+
     # forces use of gtk3-update-icon-cache instead of gtk-update-icon-cache. No bugreport should
     # be filed for this since it only occurs because Homebrew renames gtk+3's gtk-update-icon-cache
     # to gtk3-update-icon-cache in order to avoid a collision between gtk+ and gtk+3.

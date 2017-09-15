@@ -26,6 +26,8 @@ class Evince < Formula
   depends_on :python if MacOS.version <= :snow_leopard
 
   def install
+    # Fix build failure "ar: illegal option -- D"
+    # Reported 15 Sep 2017 https://bugzilla.gnome.org/show_bug.cgi?id=787709
     inreplace "configure", "AR_FLAGS=crD", "AR_FLAGS=r"
 
     # forces use of gtk3-update-icon-cache instead of gtk-update-icon-cache. No bugreport should

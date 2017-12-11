@@ -24,7 +24,7 @@ class JsonGlib < Formula
 
     mkdir "build" do
       system "meson", "--prefix=#{prefix}", ".."
-      system "ninja"
+      system "ninja", "-v"
       system "ninja", "test"
       system "ninja", "install"
     end

@@ -3,6 +3,7 @@ class GobjectIntrospection < Formula
   homepage "https://live.gnome.org/GObjectIntrospection"
   url "https://download.gnome.org/sources/gobject-introspection/1.54/gobject-introspection-1.54.1.tar.xz"
   sha256 "b88ded5e5f064ab58a93aadecd6d58db2ec9d970648534c63807d4f9a7bb877e"
+  revision 1
 
   bottle do
     sha256 "af8872721600cf3b5c033bad125fcef08a59e3ddfde4093fe6bc6bce5331e004" => :high_sierra
@@ -15,6 +16,8 @@ class GobjectIntrospection < Formula
   depends_on "cairo"
   depends_on "libffi"
   depends_on "python" if MacOS.version <= :mavericks
+
+  patch :DATA
 
   resource "tutorial" do
     url "https://gist.github.com/7a0023656ccfe309337a.git",
@@ -41,3 +44,19 @@ class GobjectIntrospection < Formula
     assert_predicate testpath/"Tut-0.1.typelib", :exist?
   end
 end
+
+__END__
+diff --git a/giscanner/ccompiler.py b/giscanner/ccompiler.py
+index 29de0ee..8d89502 100644
+--- a/giscanner/ccompiler.py
++++ b/giscanner/ccompiler.py
+@@ -119,7 +119,7 @@ class CCompiler(object):
+         if self.check_is_msvc():
+             runtime_path_envvar = ['LIB', 'PATH']
+         else:
+-            runtime_path_envvar = ['LD_LIBRARY_PATH']
++            runtime_path_envvar = ['LD_LIBRARY_PATH', 'DYLD_LIBRARY_PATH']
+             # Search the current directory first
+             # (This flag is not supported nor needed for Visual C++)
+             args.append('-L.')
+

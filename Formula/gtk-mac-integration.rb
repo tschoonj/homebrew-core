@@ -12,8 +12,8 @@ class GtkMacIntegration < Formula
 
   depends_on "gobject-introspection" => :build
   depends_on "pkg-config" => :build
-  depends_on "gtk+"
   depends_on "gettext"
+  depends_on "gtk+"
   depends_on "gtk+3" => :recommended
   depends_on "pygtk"
 

@@ -3,6 +3,7 @@ class SharedMimeInfo < Formula
   homepage "https://wiki.freedesktop.org/www/Software/shared-mime-info"
   url "https://freedesktop.org/~hadess/shared-mime-info-1.10.tar.xz"
   sha256 "c625a83b4838befc8cafcd54e3619946515d9e44d63d61c4adf7f5513ddfbebf"
+  revision 1
 
   bottle do
     cellar :any
@@ -42,9 +43,12 @@ class SharedMimeInfo < Formula
   end
 
   def post_install
-    ln_sf HOMEBREW_PREFIX/"share/mime", share/"mime"
-    (HOMEBREW_PREFIX/"share/mime/packages").mkpath
-    cp (pkgshare/"packages").children, HOMEBREW_PREFIX/"share/mime/packages"
+    #(HOMEBREW_PREFIX/"share/mime/packages").mkpath
+    system "mkdir", "-p", HOMEBREW_PREFIX/"share/mime/packages"
+    #ln_sf HOMEBREW_PREFIX/"share/mime", share/"mime"
+    system "ln", "-sf", HOMEBREW_PREFIX/"share/mime", share/"mime"
+    #cp (pkgshare/"packages").children, HOMEBREW_PREFIX/"share/mime/packages"
+    system "cp", pkgshare/"packages/freedesktop.org.xml", HOMEBREW_PREFIX/"share/mime/packages/"
     system bin/"update-mime-database", HOMEBREW_PREFIX/"share/mime"
   end
 

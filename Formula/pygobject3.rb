@@ -44,9 +44,17 @@ class Pygobject3 < Formula
   test do
     Pathname("test.py").write <<~EOS
       import gi
+      gi.require_version("GLib", "2.0")
       assert("__init__" in gi.__file__)
+      from gi.repository import GLib
+      assert(31 == GLib.Date.get_days_in_month(GLib.DateMonth.JANUARY, 2000))
     EOS
-    Language::Python.each_python(build) do |python, pyversion|
+    pythons = [
+      Formula["python@2"].opt_bin/"python2",
+      Formula["python"].opt_bin/"python3",
+    ]
+    pythons.each do |python|
+      pyversion = Language::Python.major_minor_version(python)
       ENV.prepend_path "PYTHONPATH", lib/"python#{pyversion}/site-packages"
       system python, "test.py"
     end

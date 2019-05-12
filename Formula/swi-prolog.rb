@@ -4,6 +4,7 @@ class SwiProlog < Formula
   url "http://www.swi-prolog.org/download/stable/src/swipl-8.0.2.tar.gz"
   sha256 "abb81b55ac5f2c90997c0005b1f15b74ed046638b64e784840a139fe21d0a735"
   head "https://github.com/SWI-Prolog/swipl-devel.git"
+  revision 1
 
   bottle do
     sha256 "1cec5efa06e469a67a7701fa8bc08f320f95ec766f494c305453301a5f8335e6" => :mojave
@@ -19,7 +20,6 @@ class SwiProlog < Formula
   depends_on "libarchive"
   depends_on "libyaml"
   depends_on "openssl"
-  depends_on "ossp-uuid"
   depends_on "pcre"
   depends_on "readline"
   depends_on "unixodbc"

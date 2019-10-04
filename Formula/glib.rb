@@ -71,6 +71,8 @@ class Glib < Formula
       s.gsub! "Requires.private: libffi",
               "Requires.private: #{libffi}/lib/pkgconfig/libffi.pc"
     end
+
+    bash_completion.install Dir["gio/completion/*"]
   end
 
   def post_install

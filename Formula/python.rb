@@ -3,6 +3,7 @@ class Python < Formula
   homepage "https://www.python.org/"
   url "https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tar.xz"
   sha256 "e85a76ea9f3d6c485ec1780fca4e500725a4a7bbc63c78ebc44170de9b619d94"
+  revision 1
   head "https://github.com/python/cpython.git"
 
   bottle do
@@ -138,12 +139,6 @@ class Python < Formula
     inreplace Dir[lib_cellar/"**/_sysconfigdata_m_darwin_darwin.py"],
               %r{('LINKFORSHARED': .*?)'(Python.framework/Versions/3.\d+/Python)'}m,
               "\\1'#{opt_prefix}/Frameworks/\\2'"
-
-    # A fix, because python and python3 both want to install Python.framework
-    # and therefore we can't link both into HOMEBREW_PREFIX/Frameworks
-    # https://github.com/Homebrew/homebrew/issues/15943
-    ["Headers", "Python", "Resources"].each { |f| rm(prefix/"Frameworks/Python.framework/#{f}") }
-    rm prefix/"Frameworks/Python.framework/Versions/Current"
 
     # Symlink the pkgconfig files into HOMEBREW_PREFIX so they're accessible.
     (lib/"pkgconfig").install_symlink Dir["#{frameworks}/Python.framework/Versions/#{xy}/lib/pkgconfig/*"]

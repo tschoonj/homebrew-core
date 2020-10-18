@@ -3,6 +3,7 @@ class Llvm < Formula
   homepage "https://llvm.org/"
   # The LLVM Project is under the Apache License v2.0 with LLVM Exceptions
   license "Apache-2.0"
+  revision 1
   head "https://github.com/llvm/llvm-project.git"
 
   stable do
@@ -69,6 +70,7 @@ class Llvm < Formula
       lld
       lldb
       polly
+      flang
     ]
     # OpenMP currently fails to build on ARM
     # https://github.com/Homebrew/brew/issues/7857#issuecomment-661484670
@@ -168,6 +170,16 @@ class Llvm < Formula
       }
     EOS
 
+    (testpath/"omptest.f90").write <<~EOS
+      PROGRAM omptest
+      USE omp_lib
+
+      !$OMP PARALLEL NUM_THREADS(4)
+      WRITE(*,'(A,I1,A,I1)') 'Hello from thread ', OMP_GET_THREAD_NUM(), ', nthreads ', OMP_GET_NUM_THREADS()
+      !$OMP END PARALLEL
+      ENDPROGRAM
+    EOS
+
     clean_version = version.to_s[/(\d+\.?)+/]
 
     system "#{bin}/clang", "-L#{lib}", "-fopenmp", "-nobuiltininc",
@@ -182,6 +194,12 @@ class Llvm < Formula
       Hello from thread 2, nthreads 4
       Hello from thread 3, nthreads 4
     EOS
+    assert_equal expected_result.strip, sorted_testresult.strip
+
+    system "#{bin}/flang", "-fopenmp", "omptest.f90", "-o", "omptest"
+    testresult = shell_output("./omptest")
+
+    sorted_testresult = testresult.split("\n").sort.join("\n")
     assert_equal expected_result.strip, sorted_testresult.strip
 
     (testpath/"test.c").write <<~EOS
@@ -202,12 +220,20 @@ class Llvm < Formula
       }
     EOS
 
+    (testpath/"test.f90").write <<~EOS
+      PROGRAM test
+        WRITE(*,'(A)') 'Hello World!'
+      ENDPROGRAM
+    EOS
+
     # Testing default toolchain and SDK location.
     system "#{bin}/clang++", "-v",
            "-std=c++11", "test.cpp", "-o", "test++"
     assert_includes MachO::Tools.dylibs("test++"), "/usr/lib/libc++.1.dylib"
     assert_equal "Hello World!", shell_output("./test++").chomp
     system "#{bin}/clang", "-v", "test.c", "-o", "test"
+    assert_equal "Hello World!", shell_output("./test").chomp
+    system "#{bin}/flang", "-v", "test.f90", "-o", "test"
     assert_equal "Hello World!", shell_output("./test").chomp
 
     # Testing Command Line Tools

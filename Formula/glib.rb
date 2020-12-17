@@ -3,8 +3,8 @@ class Glib < Formula
 
   desc "Core application library for C"
   homepage "https://developer.gnome.org/glib/"
-  url "https://download.gnome.org/sources/glib/2.66/glib-2.66.3.tar.xz"
-  sha256 "79f31365a99cb1cc9db028625635d1438890702acde9e2802eae0acebcf7b5b1"
+  url "https://download.gnome.org/sources/glib/2.66/glib-2.66.4.tar.xz"
+  sha256 "97df8670e32f9fd4f7392b0980e661dd625012015d58350da1e58e343f4af984"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -35,6 +35,13 @@ class Glib < Formula
   patch do
     url "https://raw.githubusercontent.com/Homebrew/formula-patches/6164294a75541c278f3863b111791376caa3ad26/glib/hardcoded-paths.diff"
     sha256 "a57fec9e85758896ff5ec1ad483050651b59b7b77e0217459ea650704b7d422b"
+  end
+
+  # required for gtk+4
+  # see discussion at https://gitlab.gnome.org/GNOME/gtk/-/issues/3477
+  patch do
+    url "https://gitlab.gnome.org/GNOME/glib/-/commit/8c76bec77985be7f4c81a052ec649232341369f6.diff"
+    sha256 "77a99826a9acf4d2400e720137c23ab9dbe03feaff4fec440442c60733b7a00c"
   end
 
   def install

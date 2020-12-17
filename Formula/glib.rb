@@ -41,7 +41,7 @@ class Glib < Formula
   # see discussion at https://gitlab.gnome.org/GNOME/gtk/-/issues/3477
   patch do
     url "https://gitlab.gnome.org/GNOME/glib/-/commit/8c76bec77985be7f4c81a052ec649232341369f6.patch"
-    sha256 "77a99826a9acf4d2400e720137c23ab9dbe03feaff4fec440442c60733b7a00c"
+    sha256 "333aa937d87431d6fd01bd3ca1cc684a9562dd1c2c327a7c0f0c463b6a384e25"
   end
 
   def install

@@ -40,7 +40,7 @@ class Glib < Formula
   # required for gtk+4
   # see discussion at https://gitlab.gnome.org/GNOME/gtk/-/issues/3477
   patch do
-    url "https://gitlab.gnome.org/GNOME/glib/-/commit/8c76bec77985be7f4c81a052ec649232341369f6.diff"
+    url "https://gitlab.gnome.org/GNOME/glib/-/commit/8c76bec77985be7f4c81a052ec649232341369f6.patch"
     sha256 "77a99826a9acf4d2400e720137c23ab9dbe03feaff4fec440442c60733b7a00c"
   end
 
